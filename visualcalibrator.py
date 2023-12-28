@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import argparse
 import numpy
 import json
@@ -18,7 +19,8 @@ def aruco_id_to_global_corner_index(aruco_id):
         return 2
 
 def main(frames_dir, gcode):
-    for im_name in sorted(os.listdir(frames_dir)):
+    plot_num = 0
+    for k, im_name in enumerate(sorted(os.listdir(frames_dir)), 0):
         im_path = os.path.join(frames_dir, im_name)
 
         im = cv2.imread(im_path)
@@ -45,15 +47,37 @@ def main(frames_dir, gcode):
         warped_mask = cv2.cvtColor(warped, cv2.COLOR_BGR2HSV)
         warped_mask = cv2.inRange(warped_mask, numpy.uint8([0, 85, 85]), numpy.uint8([179, 255, 255]))
 
+        canny = cv2.Canny(warped_mask, 100, 200)
+        contours, hierarchy = cv2.findContours(canny, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+        cv2.drawContours(warped, contours, -1, (0, 255, 0), 1)
+
         cv2.imshow("Original", labelled_image)
         cv2.imshow("Perspective Transform", warped)
-        cv2.imshow("Perspective Transform Mask", warped_mask)
+        cv2.imshow("Perspective Transform Mask", canny)
+        
+        # assume all the countours that are found are of the same shape (sometimes it gets separated around the point)
+        # but yeah this assumes the thresholding perfect (which it usually is)
+        contour = numpy.concatenate(contours, axis = 0)
+        # print(contour.shape)
+        q = contour[:, 0, :]
+        
+        if k % 6 == 0:
+            plot_num += 1
+
+        plt.figure(plot_num)
+        plt.scatter(contour[:, 0, 0], contour[:, 0, 1])
+        plt.savefig(os.path.join("Plots", "Plot-%i.png" % plot_num))
 
         if cv2.waitKey(500) & 0xFF == ord('q'):
             break
-            
-            
+                   
     cv2.destroyAllWindows()
+
+def gradient(pt_1, pt_2):
+    up = pt_1[1] - pt_2[1]
+    across = pt_1[0] = pt_2[0]
+    return up / across
 
 def order_corners(global_corners):
     # the order of points needs to be consistant
@@ -92,7 +116,7 @@ def get_argparser():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-f", "--frames-dir",
-        help = "Path to a directory containing image frames. Should contain n+1 frames where n is the number of gcode commands",
+        help = "Path to a directory containing image frames",
         required = True,
         type = os.path.abspath
     )
