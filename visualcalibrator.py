@@ -1,7 +1,9 @@
 import matplotlib.pyplot as plt
 import argparse
 import numpy
+import pandas
 import json
+import math
 import cv2
 import os
 
@@ -47,30 +49,41 @@ def main(frames_dir, gcode):
         warped_mask = cv2.cvtColor(warped, cv2.COLOR_BGR2HSV)
         warped_mask = cv2.inRange(warped_mask, numpy.uint8([0, 85, 85]), numpy.uint8([179, 255, 255]))
 
-        canny = cv2.Canny(warped_mask, 100, 200)
-        contours, hierarchy = cv2.findContours(canny, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
-        cv2.drawContours(warped, contours, -1, (0, 255, 0), 1)
-
-        cv2.imshow("Original", labelled_image)
-        cv2.imshow("Perspective Transform", warped)
-        cv2.imshow("Perspective Transform Mask", canny)
-        
+        # canny = cv2.Canny(warped_mask, 100, 200)
+        contours, hierarchy = cv2.findContours(warped_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
         # assume all the countours that are found are of the same shape (sometimes it gets separated around the point)
         # but yeah this assumes the thresholding perfect (which it usually is)
         contour = numpy.concatenate(contours, axis = 0)
+
+        cv2.drawContours(warped, contours, -1, (0, 255, 0), 1)
+
+        # cv2.imshow("Orqiginal", labelled_image)
+        # cv2.imshow("Perspective Transform", warped)
+        # cv2.imshow("Perspective Transform Mask", canny)
+
         # print(contour.shape)
-        q = contour[:, 0, :]
+        twod_cont = contour[:, 0, :]
         
+        plt_points = None
         if k % 6 == 0:
             plot_num += 1
+            plot_csv_name = os.path.join("Plots", "Plot-%i.csv" % plot_num)
+
+        for x, y in twod_cont:
+            with open(plot_csv_name, "a") as f:
+                f.write("%i,%i,%i\n" % (k, x, y))
 
         plt.figure(plot_num)
         plt.scatter(contour[:, 0, 0], contour[:, 0, 1])
         plt.savefig(os.path.join("Plots", "Plot-%i.png" % plot_num))
 
-        if cv2.waitKey(500) & 0xFF == ord('q'):
-            break
+        # cv2.waitKey(0)
+        # break
+        
+
+        # if cv2.waitKey(500) & 0xFF == ord('q'):
+        #     break
+
                    
     cv2.destroyAllWindows()
 
