@@ -1,7 +1,9 @@
 import matplotlib.pyplot as plt
+import operator
 import argparse
-import numpy
 import pandas
+import numpy
+import sympy
 import json
 import math
 import cv2
@@ -54,42 +56,52 @@ def main(frames_dir, gcode):
         # assume all the countours that are found are of the same shape (sometimes it gets separated around the point)
         # but yeah this assumes the thresholding perfect (which it usually is)
         contour = numpy.concatenate(contours, axis = 0)
+        hull = cv2.convexHull(contour, returnPoints = False)
+        defects = cv2.convexityDefects(contour, hull)
+
+        # get the largest convexity defect, which is always the inner bend
+        s, e, f, distance = max(defects[:, 0, :], key = operator.itemgetter(3))
+        # ^ these are indexes in the contour object, from which we can get the exact coords below
+        start = tuple(contour[s][0])
+        end = tuple(contour[e][0])
+        furthest = tuple(contour[f][0])
+
+        if k % 6 == 0:
+            plot_num += 1
+
+        normal = gradient(start, end) ** -1
+
+        line = sympy.Line(sympy.Point(start), sympy.Point(end))
+        normal = line.perpendicular_line(sympy.Point(furthest))
+        intersection = normal.intersection(line)[0]
+        actual_distance = float(intersection.distance(sympy.Point(furthest)))
+        distances_px = (
+            actual_distance, 
+            float(sympy.Point(start).distance(sympy.Point(end))), 
+            float(sympy.Point(start).distance(sympy.Point(intersection)))
+        )
+        print(plot_num, distances_px)
+
+        
+    
+        cv2.line(warped, start, end, (0, 0, 255), 1)
+        cv2.circle(warped, furthest, 3, (255, 255, 0), -1)
+        cv2.line(warped, (int(intersection.x), int(intersection.y)), furthest, (0, 0, 255), 1)
 
         cv2.drawContours(warped, contours, -1, (0, 255, 0), 1)
 
-        # cv2.imshow("Orqiginal", labelled_image)
-        # cv2.imshow("Perspective Transform", warped)
-        # cv2.imshow("Perspective Transform Mask", canny)
+        cv2.imshow("Original", labelled_image)
+        cv2.imshow("Perspective Transform", warped)
 
-        # print(contour.shape)
-        twod_cont = contour[:, 0, :]
-        
-        plt_points = None
-        if k % 6 == 0:
-            plot_num += 1
-            plot_csv_name = os.path.join("Plots", "Plot-%i.csv" % plot_num)
-
-        for x, y in twod_cont:
-            with open(plot_csv_name, "a") as f:
-                f.write("%i,%i,%i\n" % (k, x, y))
-
-        plt.figure(plot_num)
-        plt.scatter(contour[:, 0, 0], contour[:, 0, 1])
-        plt.savefig(os.path.join("Plots", "Plot-%i.png" % plot_num))
-
-        # cv2.waitKey(0)
-        # break
-        
-
-        # if cv2.waitKey(500) & 0xFF == ord('q'):
-        #     break
-
-                   
+        if cv2.waitKey(500) & 0xFF == ord('q'):
+            break
+         
     cv2.destroyAllWindows()
+
 
 def gradient(pt_1, pt_2):
     up = pt_1[1] - pt_2[1]
-    across = pt_1[0] = pt_2[0]
+    across = pt_1[0] - pt_2[0]
     return up / across
 
 def order_corners(global_corners):
