@@ -1,0 +1,282 @@
+[
+    {
+        "timestamp": 1702642215.9264987,
+        "distance_on_shaft": 5.8799999999999955,
+        "bend_distance": 2.1500000000000057,
+        "defect_distance": 6.40395427903034,
+        "defect_length": 269.8332818612263,
+        "defect_location": 122.20879415816232
+    },
+    {
+        "timestamp": 1702642217.9524577,
+        "distance_on_shaft": 5.859999999999999,
+        "bend_distance": 4.150000000000006,
+        "defect_distance": 7.013446801839258,
+        "defect_length": 270.7655812691118,
+        "defect_location": 120.84623107055417
+    },
+    {
+        "timestamp": 1702642219.9680479,
+        "distance_on_shaft": 5.849999999999994,
+        "bend_distance": 6.150000000000006,
+        "defect_distance": 7.4217663883978835,
+        "defect_length": 266.9175902783479,
+        "defect_location": 108.41548498104893
+    },
+    {
+        "timestamp": 1702642221.9989407,
+        "distance_on_shaft": 5.829999999999998,
+        "bend_distance": 8.150000000000006,
+        "defect_distance": 8.129997163118816,
+        "defect_length": 266.17475462560304,
+        "defect_location": 112.34724360716501
+    },
+    {
+        "timestamp": 1702642224.019574,
+        "distance_on_shaft": 5.819999999999993,
+        "bend_distance": 10.150000000000006,
+        "defect_distance": 8.426823623784488,
+        "defect_length": 265.58049627184596,
+        "defect_location": 121.46599789082387
+    },
+    {
+        "timestamp": 1702642229.0530872,
+        "distance_on_shaft": 10.379999999999995,
+        "bend_distance": 2.1699999999999875,
+        "defect_distance": 6.044818511454245,
+        "defect_length": 268.9907061591534,
+        "defect_location": 101.02207763238479
+    },
+    {
+        "timestamp": 1702642231.0841455,
+        "distance_on_shaft": 10.36,
+        "bend_distance": 4.1699999999999875,
+        "defect_distance": 7.023409858082197,
+        "defect_length": 272.0900586203031,
+        "defect_location": 122.04782551920125
+    },
+    {
+        "timestamp": 1702642233.0946567,
+        "distance_on_shaft": 10.349999999999994,
+        "bend_distance": 6.1699999999999875,
+        "defect_distance": 7.096189150164358,
+        "defect_length": 273.38617375427015,
+        "defect_location": 111.6003767894405
+    },
+    {
+        "timestamp": 1702642235.120297,
+        "distance_on_shaft": 10.329999999999998,
+        "bend_distance": 8.169999999999987,
+        "defect_distance": 7.797901136688088,
+        "defect_length": 266.6102023554237,
+        "defect_location": 123.79496248984624
+    },
+    {
+        "timestamp": 1702642237.1459837,
+        "distance_on_shaft": 10.310000000000002,
+        "bend_distance": 10.169999999999987,
+        "defect_distance": 8.283209622111203,
+        "defect_length": 270.1851217221259,
+        "defect_location": 114.4918706212636
+    },
+    {
+        "timestamp": 1702642242.1741,
+        "distance_on_shaft": 14.879999999999995,
+        "bend_distance": 2.1899999999999977,
+        "defect_distance": 6.06829896722236,
+        "defect_length": 279.48524111301475,
+        "defect_location": 114.38171072179506
+    },
+    {
+        "timestamp": 1702642244.200252,
+        "distance_on_shaft": 14.86,
+        "bend_distance": 4.189999999999998,
+        "defect_distance": 6.757246285173463,
+        "defect_length": 276.739950133695,
+        "defect_location": 121.32328557470535
+    },
+    {
+        "timestamp": 1702642246.216064,
+        "distance_on_shaft": 14.849999999999994,
+        "bend_distance": 6.189999999999998,
+        "defect_distance": 7.248797765052533,
+        "defect_length": 278.1150840928985,
+        "defect_location": 124.24353074088553
+    },
+    {
+        "timestamp": 1702642248.2468767,
+        "distance_on_shaft": 14.829999999999998,
+        "bend_distance": 8.189999999999998,
+        "defect_distance": 7.434456832849886,
+        "defect_length": 273.59093552235976,
+        "defect_location": 127.27029838733188
+    },
+    {
+        "timestamp": 1702642250.283043,
+        "distance_on_shaft": 14.810000000000002,
+        "bend_distance": 10.189999999999998,
+        "defect_distance": 7.909705535621727,
+        "defect_length": 274.346496241523,
+        "defect_location": 121.17523079548788
+    },
+    {
+        "timestamp": 1702642255.3010268,
+        "distance_on_shaft": 19.379999999999995,
+        "bend_distance": 2.210000000000008,
+        "defect_distance": 5.6696465389357815,
+        "defect_length": 280.79351844371337,
+        "defect_location": 136.77666141606005
+    },
+    {
+        "timestamp": 1702642257.3321364,
+        "distance_on_shaft": 19.36,
+        "bend_distance": 4.210000000000008,
+        "defect_distance": 6.265951726700179,
+        "defect_length": 281.04270138183625,
+        "defect_location": 126.45053518652526
+    },
+    {
+        "timestamp": 1702642259.3680863,
+        "distance_on_shaft": 19.349999999999994,
+        "bend_distance": 6.210000000000008,
+        "defect_distance": 6.460044905570263,
+        "defect_length": 282.66057383370605,
+        "defect_location": 146.85458052038422
+    },
+    {
+        "timestamp": 1702642261.39385,
+        "distance_on_shaft": 19.33,
+        "bend_distance": 8.210000000000008,
+        "defect_distance": 6.907912730729928,
+        "defect_length": 277.2183255125822,
+        "defect_location": 133.63113687200533
+    },
+    {
+        "timestamp": 1702642263.4095538,
+        "distance_on_shaft": 19.310000000000002,
+        "bend_distance": 10.210000000000008,
+        "defect_distance": 7.333441867738992,
+        "defect_length": 280.22312538404105,
+        "defect_location": 137.9971761681104
+    },
+    {
+        "timestamp": 1702642268.4427595,
+        "distance_on_shaft": 23.879999999999995,
+        "bend_distance": 2.2299999999999898,
+        "defect_distance": 4.997989242365778,
+        "defect_length": 282.11345235560816,
+        "defect_location": 129.74212925466114
+    },
+    {
+        "timestamp": 1702642270.4738984,
+        "distance_on_shaft": 23.86,
+        "bend_distance": 4.22999999999999,
+        "defect_distance": 5.883484054145521,
+        "defect_length": 285.545092761196,
+        "defect_location": 138.8502236778343
+    },
+    {
+        "timestamp": 1702642272.509981,
+        "distance_on_shaft": 23.849999999999994,
+        "bend_distance": 6.22999999999999,
+        "defect_distance": 6.02969444065999,
+        "defect_length": 283.0989226401259,
+        "defect_location": 139.8486424136905
+    },
+    {
+        "timestamp": 1702642274.5362666,
+        "distance_on_shaft": 23.83,
+        "bend_distance": 8.22999999999999,
+        "defect_distance": 6.242412684094717,
+        "defect_length": 284.98596456667826,
+        "defect_location": 116.21975857779715
+    },
+    {
+        "timestamp": 1702642276.5470781,
+        "distance_on_shaft": 23.810000000000002,
+        "bend_distance": 10.22999999999999,
+        "defect_distance": 6.718478230144867,
+        "defect_length": 284.8859420891105,
+        "defect_location": 129.79931452157624
+    },
+    {
+        "timestamp": 1702642281.580304,
+        "distance_on_shaft": 28.379999999999995,
+        "bend_distance": 2.25,
+        "defect_distance": 4.933169944928224,
+        "defect_length": 291.49614062625255,
+        "defect_location": 137.99153537190045
+    },
+    {
+        "timestamp": 1702642283.6061025,
+        "distance_on_shaft": 28.36,
+        "bend_distance": 4.25,
+        "defect_distance": 5.25746429971327,
+        "defect_length": 290.0637860885085,
+        "defect_location": 136.93195050512222
+    },
+    {
+        "timestamp": 1702642285.6268268,
+        "distance_on_shaft": 28.349999999999994,
+        "bend_distance": 6.25,
+        "defect_distance": 5.608930217006014,
+        "defect_length": 288.6468430452687,
+        "defect_location": 137.93672426812503
+    },
+    {
+        "timestamp": 1702642287.657681,
+        "distance_on_shaft": 28.33,
+        "bend_distance": 8.25,
+        "defect_distance": 5.731776301780831,
+        "defect_length": 289.61353559528254,
+        "defect_location": 115.29157272076023
+    },
+    {
+        "timestamp": 1702642289.683622,
+        "distance_on_shaft": 28.310000000000002,
+        "bend_distance": 10.25,
+        "defect_distance": 6.347991990064143,
+        "defect_length": 290.80061898145954,
+        "defect_location": 141.53339887706392
+    },
+    {
+        "timestamp": 1702642294.7167315,
+        "distance_on_shaft": 32.879999999999995,
+        "bend_distance": 2.2700000000000102,
+        "defect_distance": 4.561578674099571,
+        "defect_length": 290.68883707497264,
+        "defect_location": 114.66556588618921
+    },
+    {
+        "timestamp": 1702642296.732316,
+        "distance_on_shaft": 32.86,
+        "bend_distance": 4.27000000000001,
+        "defect_distance": 4.789743684408824,
+        "defect_length": 291.247317584214,
+        "defect_location": 127.72649825090198
+    },
+    {
+        "timestamp": 1702642298.7580884,
+        "distance_on_shaft": 32.849999999999994,
+        "bend_distance": 6.27000000000001,
+        "defect_distance": 5.091528323484574,
+        "defect_length": 297.3566881709574,
+        "defect_location": 131.90555840953465
+    },
+    {
+        "timestamp": 1702642300.7890756,
+        "distance_on_shaft": 32.83,
+        "bend_distance": 8.27000000000001,
+        "defect_distance": 5.346276156704899,
+        "defect_length": 293.28825411188905,
+        "defect_location": 140.32611065392018
+    },
+    {
+        "timestamp": 1702642302.8048086,
+        "distance_on_shaft": 32.81,
+        "bend_distance": 10.27000000000001,
+        "defect_distance": 5.5553924542826785,
+        "defect_length": 292.3285822494954,
+        "defect_location": 120.68611193786508
+    }
+]

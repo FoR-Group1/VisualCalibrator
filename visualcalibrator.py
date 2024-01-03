@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
+from collections import OrderedDict
 import operator
 import argparse
+import pickle
 import pandas
 import numpy
 import sympy
@@ -22,8 +24,29 @@ def aruco_id_to_global_corner_index(aruco_id):
     elif aruco_id == 27:
         return 2
 
-def main(frames_dir, gcode):
+def main(frames_dir, gcode, movements_per_offset):
     plot_num = 0
+    printer_moves_i = 0
+
+    printer_moves = []
+    thelastone = {}
+    with open(gcode, "r") as f:
+        gcodes = f.read()
+    thelastone = 0.0
+    for line in gcodes.split("\n"):
+        line = line.replace("Maximum deflection:", "")
+        if line.startswith("{"):
+            line = line.replace("'", '"')   # yes it really is this pedantic
+            d = json.loads(line)
+            if d["bend_distance"] == thelastone or d["bend_distance"] < 0:
+                continue
+            printer_moves.append(d)
+            thelastone = d["bend_distance"]
+    # print(json.dumps(printer_moves, indent=4))
+    # print(len(printer_moves) / 5)
+
+    # return
+
     for k, im_name in enumerate(sorted(os.listdir(frames_dir)), 0):
         im_path = os.path.join(frames_dir, im_name)
 
@@ -47,6 +70,19 @@ def main(frames_dir, gcode):
         dst, width, height = get_persp_size(global_corners)
         persp_m = cv2.getPerspectiveTransform(global_corners, dst)
         warped = cv2.warpPerspective(im, persp_m, (width, height))
+
+        avg = []
+        for c in corners:
+            _, w, h = get_persp_size(order_corners(c[0, :, :]))
+            avg.append((w, h))
+        aruco_x_px, aruco_y_px = numpy.mean([i[0] for i in avg]), numpy.mean([i[1] for i in avg])
+
+        # rois = numpy.array([(1, 0, 275, 241), (726, 1, 270, 239), (726, 264, 270, 236), (0, 265, 276, 235)]) # a better solution would do this for each frame
+        # aruco_x_px = numpy.mean(rois[:, 2])
+        # aruco_y_px = numpy.mean(rois[:, 3])
+        # # print(rois)
+        # # print(aruco_x_px)
+        # # print(aruco_y_px)
 
         warped_mask = cv2.cvtColor(warped, cv2.COLOR_BGR2HSV)
         warped_mask = cv2.inRange(warped_mask, numpy.uint8([0, 85, 85]), numpy.uint8([179, 255, 255]))
@@ -80,10 +116,15 @@ def main(frames_dir, gcode):
             float(sympy.Point(start).distance(sympy.Point(end))), 
             float(sympy.Point(start).distance(sympy.Point(intersection)))
         )
-        print(plot_num, distances_px)
+        # print(k, plot_num, distances_px)
+        if k % (movements_per_offset+1) != 0:       # ignore untouched point
+            # print(printer_moves_i, distances_px)
+            printer_moves[printer_moves_i]["defect_distance"] = distances_px[0]
+            printer_moves[printer_moves_i]["defect_length"] = distances_px[1]
+            printer_moves[printer_moves_i]["defect_location"] = distances_px[2]
 
-        
-    
+            printer_moves_i += 1
+  
         cv2.line(warped, start, end, (0, 0, 255), 1)
         cv2.circle(warped, furthest, 3, (255, 255, 0), -1)
         cv2.line(warped, (int(intersection.x), int(intersection.y)), furthest, (0, 0, 255), 1)
@@ -93,10 +134,12 @@ def main(frames_dir, gcode):
         cv2.imshow("Original", labelled_image)
         cv2.imshow("Perspective Transform", warped)
 
-        if cv2.waitKey(500) & 0xFF == ord('q'):
+        if cv2.waitKey(250) & 0xFF == ord('q'):
             break
          
     cv2.destroyAllWindows()
+
+    print(json.dumps(printer_moves, indent=4))
 
 
 def gradient(pt_1, pt_2):
@@ -150,6 +193,12 @@ def get_argparser():
         help = "Path to a file containing timestamped gcode commands",
         required = True,
         type = os.path.abspath
+    )
+    parser.add_argument(
+        "-m", "--movements-per-offset",
+        help = "How many times it pushes in the x axis for each length along the whisker",
+        type = int,
+        required = True
     )
     return vars(parser.parse_args())
 
